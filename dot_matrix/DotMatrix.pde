@@ -31,31 +31,37 @@ class DotMatrix {
     int temp_x = x; 
     int temp_y = y;
     
-    // draw the borader
-    fill(0);
-    rect(temp_x, temp_y, 
-      (dot_size + dot_gap) * columns + dot_gap, 
-      (dot_size + dot_gap) * rows + dot_gap);
+    int matrix_width = (dot_size + dot_gap) * columns + dot_gap;
+    int matrix_height = (dot_size + dot_gap) * rows + dot_gap;
     
+    // draw the borader
+    PGraphics pg;
+    pg = createGraphics(matrix_width + 20, matrix_height + 20);
+    
+    pg.beginDraw();
+    pg.fill(0);
+    pg.rect(temp_x, temp_y, matrix_width, matrix_height);
     
     temp_y += dot_gap;
     for (int i = 0; i < rows; i++) {
       temp_x += dot_gap;
       for (int j = 0; j < columns; j++) {
-        float r = random(1);
         if (data[i][j] > 0) {
-          fill(dot_color, data[i][j]);
+          pg.fill(dot_color, data[i][j]);
         } else {
-          fill(bg_color);
+          pg.fill(bg_color);
         }
-        square(temp_x, temp_y, dot_size);
+        pg.square(temp_x, temp_y, dot_size);
         temp_x += (dot_size + dot_gap);
       }
       temp_x = x;
       temp_y += (dot_size + dot_gap);
     }
+
+    //pg.filter(BLUR, 6);
+    pg.endDraw();
     
-    
+    image(pg, 0, 0);
     
     popMatrix();
   }

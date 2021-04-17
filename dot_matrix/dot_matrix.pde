@@ -12,7 +12,7 @@ int test_data[][] = {
 };
 
 void setup() {
-  size(400, 400);
+  size(350, 350);
   matrix = new DotMatrix();
 }
 
