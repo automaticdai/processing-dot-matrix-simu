@@ -1,25 +1,27 @@
 DotMatrix matrix;
 
-int test_data[][] = {
-{0,200,200,200,0,200, 0,200},
-{100,0,100,100,0,200,100,200},
-{150,100,0,200,0,0,200,200},
-{200,100,200,0,0,200,200,200},
-{0,200,200,200,0,200,200,150},
-{100,0,100,100,0,200,200,200},
-{150,100,0,200,0,200,150,100},
-{200,100,200,0,0,200, 0,200}
-};
+int[][] dot_data;
+int rows = 120;
+int columns = 120;
 
 void setup() {
-  size(350, 350);
-  matrix = new DotMatrix();
+  size(1000, 1000);
+  randomSeed(0);
+  matrix = new DotMatrix(rows, columns);
+  dot_data = new int[rows][columns];
 }
 
 
 void draw() {
   background(200);
-  randomSeed(0);
-  matrix.loadData(test_data);
+  
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < columns; j++) {
+      dot_data[i][j] = int(random(0, 255));
+    }
+  }
+  
+  matrix.loadData(dot_data);
   matrix.draw();
+  
 }

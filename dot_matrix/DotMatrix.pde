@@ -1,16 +1,39 @@
 class DotMatrix {
-  int dot_size = 32;
-  int dot_gap = 5;
-  color dot_color = color(250,1,1);
-  color bg_color = color(200,200,200,100);
   int columns = 8;
   int rows = 8;
+  int dot_size = 2;
+  int dot_gap = 0;
+  color dot_color = color(255,1,1);
+  color bg_color = color(200,200,200,100);
   int data[][];
-  int x = 20;
-  int y = 20;
+  int x = 0;
+  int y = 0;
   
-  DotMatrix() {
+  DotMatrix(int _rows, int _columns) {
+    if (_rows < 1) {
+      _rows = 1;
+    }
+    
+    if (_columns < 1) {
+      _columns = 1;
+    }
+    
+    rows = _rows;
+    columns = _columns;
     data = new int[rows][columns];
+  }
+  
+  void setDotSize(int _dot_size, int _dot_gap) {
+    if (_dot_size < 2) {
+      _dot_size = 2;
+    }
+    
+    if (_dot_gap < 0) {
+      _dot_gap = 0;
+    }
+    
+    dot_size = _dot_size;
+    dot_gap = _dot_gap;
   }
   
   void loadData(int[][] data) {
