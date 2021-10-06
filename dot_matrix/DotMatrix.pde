@@ -5,9 +5,9 @@ class DotMatrix {
   int dot_gap = 0;
   color dot_color = color(255,1,1);
   color bg_color = color(200,200,200,100);
+  int matrix_width;
+  int matrix_height;
   int data[][];
-  int x = 0;
-  int y = 0;
   
   DotMatrix(int _rows, int _columns) {
     if (_rows < 1) {
@@ -21,6 +21,17 @@ class DotMatrix {
     rows = _rows;
     columns = _columns;
     data = new int[rows][columns];
+    
+    matrix_width = (dot_size + dot_gap) * columns + dot_gap;
+    matrix_height = (dot_size + dot_gap) * rows + dot_gap;
+  }
+  
+  void setDotColor(color newColor) {
+    dot_color = newColor;
+  }
+  
+  void setBgColor(color newBgColor) {
+    bg_color = newBgColor;
   }
   
   void setDotSize(int _dot_size, int _dot_gap) {
@@ -34,8 +45,20 @@ class DotMatrix {
     
     dot_size = _dot_size;
     dot_gap = _dot_gap;
+    
+    matrix_width = (dot_size + dot_gap) * columns + dot_gap;
+    matrix_height = (dot_size + dot_gap) * rows + dot_gap;
   }
   
+  int getMatrixWidth() {
+    return matrix_width;
+  }
+  
+  int getMatrixHeight() {
+    return matrix_height;
+  }
+  
+  /* the dimension of data should match exactly of the matrix dimension */
   void loadData(int[][] data) {
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
@@ -44,6 +67,7 @@ class DotMatrix {
     }
   }
   
+  /* set a single pixel */
   void setPixel(int i, int j, int data) {
     this.data[i][j] = data;
   }
@@ -51,12 +75,12 @@ class DotMatrix {
   void draw() {
     pushMatrix();
     
+    int x = 0;
+    int y = 0;
+  
     int temp_x = x; 
     int temp_y = y;
-    
-    int matrix_width = (dot_size + dot_gap) * columns + dot_gap;
-    int matrix_height = (dot_size + dot_gap) * rows + dot_gap;
-    
+     
     // draw the borader
     PGraphics pg;
     pg = createGraphics(matrix_width + 20, matrix_height + 20);
